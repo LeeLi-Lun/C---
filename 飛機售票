@@ -1,0 +1,40 @@
+#include "stdio.h"
+#define PRICE 5000
+#define SEAT 250
+
+int main(){
+	int price;
+	int seat;
+	int order;
+	int counter;
+	int number;
+	int number_seat; 
+	int revenue;
+	int profit;
+	
+	
+	scanf("%d%d%%d" ,&price, &seat, &order);
+/*	while( price > PRICE || seat > SEAT || number < 0 || number >0){
+		puts("Please enter numbers again");
+		scanf_s("%d%d%%d" ,&price, &sear, &order);
+	}
+*/	
+	revenue = 0;
+	profit = 0;
+	for (counter = 1; counter <= order; counter++){
+		scanf("%d" ,&number);
+		number_seat += number;
+		if(number_seat <= seat*0.6){
+			if(number_seat <= seat*0.4){
+				if(number_seat <= seat*0.2){
+					revenue += number*(price*0.7); break;
+				}
+				revenue += number*(price*0.8); break;
+			}
+			revenue += number*(price*0.9); break;
+		}
+	}
+	profit = revenue - (seat*0.3)*(price);
+	
+	printf("%d", profit);
+}
