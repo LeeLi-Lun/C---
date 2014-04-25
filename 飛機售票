@@ -2,39 +2,40 @@
 #include <stdlib.h>
 
 int main(){
-	int price;
-	int seat;
-	int order;
-	int counter;
-	int number;
-	int number_seat = 0; 
+	int price = 0;
+	int seat = 0;
+	int order = 0;
+	int counter = 0;
+	int number = 0;
+	int numberseat = 0; 
 	double revenue = 0.0;
-	int profit = 0;
+	double profit = 0.0;
 	
-	
-	scanf("%d%d%%d" ,&price, &seat, &order);
 
+	scanf("%d%d%d" ,&price, &seat, &order);
+		
 	for (counter = 1; counter <= order; counter++){
 		scanf("%d" ,&number);
-		number_seat += number;
+		numberseat  = numberseat + number;
     }
     
-    if(number_seat <= seat*0.2){
-        number_seat*(price*0.7);
+    if(numberseat <= seat*0.2){
+       revenue =  numberseat*(price*0.7);
     }
-    if(number_seat <= seat*0.4){
-        (seat*0.2)*(price*0.7) + (number_seat - seat*0.2)*(price*0.8);
+    else if(numberseat <= seat*0.4){
+        revenue =  (seat*0.2)*(price*0.7) + (numberseat - seat*0.2)*(price*0.8);
     }
-    if(number_seat <= seat*0.6){
-        (seat*0.2)*(price*1.5)  + (number_seat - seat*0.4)*(price*0.9);
+    else if(numberseat <= seat*0.6){
+        revenue =  (seat*0.2)*(price*0.7) + (seat*0.2)*(price*0.8) +(numberseat - seat*0.4)*(price*0.9);
     }
-    if(number_seat > seat*0.6){
-        (seat*0.2)*(price*2.4) + (number_seat - seat*0.6)*(price);
+    else {
+        revenue =  (seat*0.2)*(price*0.7) +(seat*0.2)*(price*0.8) +(seat*0.2)*(price*0.9) + (numberseat - seat*0.6)*(price);
     }
 	
-    profit = (int)(revenue - (seat*0.3)*(price));
+    profit = (revenue - (seat*0.3)*(price));
 	
-	printf("%d", profit);
+
+	printf("%d\n", (int)profit);
 	
 	system("pause");
 }
