@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 int main(){
+    int counter = 0;
 	int flour = 0;
 	int milk = 0;
 	int coco = 0;
@@ -15,12 +16,15 @@ int main(){
 	
 	while(flour >= 1 && milk >= 1){
        mi_cookie++;
+       if(mi_cookie = flour || mi_cookie = milk ){break;}
     }
     while(flour >= 1&&coco >= 1){
        ch_cookie++;
+       if(ch_cookie = flour || ch_cookie = coco ){break;}
     }
     while(milk >= 1&&waffle >= 1){
-       wa_cookie++;    
+       wa_cookie++; 
+       if(wa_cookie = waffle || wa_cookie = milk ){break;}   
     }
     
     
