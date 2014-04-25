@@ -2,7 +2,30 @@
 #include <stdlib.h>
 
 int main(){
+	int flour = 0;
+	int milk = 0;
+	int coco = 0;
+	int waffle = 0;
+	int ch_cookie = 0;
+	int mi_cookie = 0;
+	int wa_cookie = 0;
+	int revenue = 0;
 	
+	scanf("%d%d%d%d" ,&flour ,&milk ,&coco ,&waffle);
+	
+	while(flour >= 1 && milk >= 1){
+       mi_cookie++;
+    }
+    while(flour >= 1&&coco >= 1){
+       ch_cookie++;
+    }
+    while(milk >= 1&&waffle >= 1){
+       wa_cookie++;    
+    }
+    
+    
+    revenue = ch_cookie*80 +  mi_cookie*100 + wa_cookie*60;
+    printf("%d %d %d\n %d\n" ,ch_cookie ,mi_cookie ,wa_cookie , revenue);
 	
 	system("pause");
 }
