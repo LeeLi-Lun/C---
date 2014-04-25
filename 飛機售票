@@ -24,17 +24,23 @@ int main(){
 	for (counter = 1; counter <= order; counter++){
 		scanf("%d" ,&number);
 		number_seat += number;
-		if(number_seat <= seat*0.6){
-			if(number_seat <= seat*0.4){
-				if(number_seat <= seat*0.2){
-					revenue += number*(price*0.7); break;
-				}
-				revenue += number*(price*0.8); break;
-			}
-			revenue += number*(price*0.9); break;
-		}
-	}
-	profit = revenue - (seat*0.3)*(price);
+    }
+    
+    if(number_seat <= seat*0.2){
+        number_seat*(price*0.7);
+    }
+    else if(number_seat <= seat*0.4){
+        (seat*0.2)*(price*0.7) + (number_seat - seat*0.2)*(price*0.8);
+    }
+    else if(number_seat <= seat*0.6){
+        (seat*0.2)*(price*0.7) + (seat*0.2)*(price*0.8) + (number_seat - seat*0.4)*(price*0.9);
+    }
+    else {
+         (seat*0.2)*(price*0.7) + (seat*0.2)*(price*0.8) + (seat*0.2)*(price*0.9)
+         + (number_seat - seat*0.6)*(price*);
+    }
+	
+    profit = revenue - (seat*0.3)*(price);
 	
 	printf("%d", profit);
 }
