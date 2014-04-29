@@ -15,28 +15,34 @@ int main(){
 	int ch_cookie ;
 	int mi_cookie ;
 	int wa_cookie ;
+	int i;
+	int j;
+	int k;
 	int revenue ;
 	int result = 0;
 
 	scanf_s("%d%d%d%d", &flour, &milk, &coco, &waffle);
 
 	
-	for (mi_cookie = 0; mi_cookie <= flour && mi_cookie <= milk; ++mi_cookie){
+	for (i = 0; i <= flour && i<= milk; ++i){
 
-		for (ch_cookie = 0; ch_cookie <= (flour - mi_cookie) && ch_cookie <= coco; ++ch_cookie);
+		for (j = 0; j <= (flour - i) && j <= coco; ++j);
 		
-		for (wa_cookie = 0; wa_cookie <= waffle && wa_cookie <= (milk - mi_cookie); ++wa_cookie);
+		for (k = 0; k <= waffle && k<= (milk - i); ++k);
 
-			revenue = (ch_cookie-1 )* 80 + mi_cookie* 100 + (wa_cookie-1) * 60;
+			revenue = (i-1 )* 80 +j* 100 + (k-1) * 60;
 
 
 			if (result <= revenue){
 				result = revenue;
+				mi_cookie = i;
+				ch_cookie = j;
+				wa_cookie = k;
 			}
 
 	}
 
-	printf("%d %d %d\n %d\n", (ch_cookie-1), (mi_cookie-1), (wa_cookie-1), result);
+	printf("%d %d %d\n %d\n", (ch_cookie-1), mi_cookie, (wa_cookie-1), result);
 
 }
 
