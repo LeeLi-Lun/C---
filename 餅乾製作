@@ -35,14 +35,14 @@ int main(){
 
 			if (result <= revenue){
 				result = revenue;
-				mi_cookie = i;
+				mi_cookie = i-1;
 				ch_cookie = j;
-				wa_cookie = k;
+				wa_cookie = k-1;
 			}
 
 	}
 
-	printf("%d %d %d\n %d\n", (ch_cookie-1), mi_cookie, (wa_cookie-1), result);
+	printf("%d %d %d\n %d\n", ch_cookie, mi_cookie, wa_cookie, result);
 
 }
 
