@@ -2,7 +2,6 @@
 //
 
 #include "stdafx.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -12,37 +11,30 @@ int main(){
 	int coco = 0;
 	int waffle = 0;
 
-	int ch_cookie ;
-	int mi_cookie ;
-	int wa_cookie ;
+	int ch_cookie;
+	int mi_cookie;
+	int wa_cookie;
 	int i;
 	int j;
 	int k;
-	int revenue ;
+	int revenue;
 	int result = 0;
 
 	scanf_s("%d%d%d%d", &flour, &milk, &coco, &waffle);
 
-	
-	for (i = 0; i <= flour && i<= milk; ++i){
-
+	for (i = 0; i <= flour && i <= milk; ++i){
 		for (j = 0; j <= (flour - i) && j <= coco; ++j);
-		
-		for (k = 0; k <= waffle && k<= (milk - i); ++k);
+		for (k = 0; k <= waffle && k <= (milk - i); ++k);
 
-			revenue = (i-1 )* 80 +j* 100 + (k-1) * 60;
+		revenue = (i - 1) * 80 + j * 100 + (k - 1) * 60;
 
-
-			if (result <= revenue){
-				result = revenue;
-				mi_cookie = i-1;
-				ch_cookie = j;
-				wa_cookie = k-1;
-			}
-
+		if (result <= revenue){
+			result = revenue;
+			mi_cookie = j;
+			ch_cookie = i - 1;
+			wa_cookie = k - 1;
+		}
 	}
-
 	printf("%d %d %d\n %d\n", ch_cookie, mi_cookie, wa_cookie, result);
-
 }
 
