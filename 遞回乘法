@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void multiple(int m, int n);
+int result = 0;
+
+int main(){
+	int m = 0;
+	int n = 0;
+	
+
+	scanf("%d%d", &m, &n);
+
+	multiple(m, n);
+
+	printf("%d\n", result);
+	
+	system("pause");
+
+}
+
+void multiple(int m, int n){
+	
+	if (n == 0){
+		return;
+	}
+
+	else{
+		multiple(m, n - 1);
+		result  = m * n;
+	}
+}
