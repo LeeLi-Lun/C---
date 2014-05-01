@@ -5,30 +5,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int f(int x, int y, int z);
-int g(int x);
-int h(int x);
+int f(int x);
+int g(int y);
+int h(int z);
 
 int main(){
 	int x;
-	int y;
-	int z;
 
 	puts("Please enter a numuber x , -300 < x < 300:");
 	scanf_s("%d", &x);
-	y = h(x);
-	z = g(x);
-	printf("%d", f(x, y ,z));
+
+//	printf("%d", f(x, y ,z));
+
 }
 
-int f(int x, int y, int z){
+int f(int x){
 	
-	if (y < x){
-		return f(x-1,) - y;
+	if (h(x) < x){
+		return f(x-1) - h(x);
 	}
 
-	else if (y > x){
-		return f(g(x)) - z;
+	else if (h(x) > x){
+		return f(g(x)) - g(x);
 	}
 
 	else{
@@ -41,11 +39,11 @@ int g(int y){
 		return -1;
 	}
 	else{
-		return 2 + h(y - 1) - h(y - 2);
+		return 2 + h(y-1) - h(y-2);
 	}
 }
 
-int h(int z){
+int h(int z){ 
 
 	if (z <= 2){
 		return z*z - 1;
