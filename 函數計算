@@ -1,20 +1,20 @@
-// U10216012.cpp : 定義主控台應用程式的進入點。
-//
 
-#include "stdafx.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 int f(int x);
-int g(int y);
-int h(int z);
+int h(int y);
+int g(int z);
 
 int main(){
 	int x;
 
 	puts("Please enter a numuber x , -300 < x < 300:");
-	scanf_s("%d", &x);
-
+	scanf("%d", &x);
+	
+	printf("%d",f(x));
+    
+    system("pause");
 //	printf("%d", f(x, y ,z));
 
 }
@@ -34,16 +34,24 @@ int f(int x){
 	}
 }
 
-int g(int y){
-	if (y <= 2){
+int h(int y){
+	if (y < 2){
 		return -1;
 	}
 	else{
-		return 2 + h(y-1) - h(y-2);
+         switch(y%6){
+             case 0: return -1;break;
+             case 1: return -1;break;
+             case 2: return 2;break;
+             case 3: return 5;break;
+             case 4: return 5;break;
+             case 5: return 2;break;
+             }
+	//	return 2 + h(y-1) - h(y-2);
 	}
 }
 
-int h(int z){ 
+int g(int z){ 
 
 	if (z <= 2){
 		return z*z - 1;
