@@ -1,0 +1,33 @@
+//dec C
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main(){
+	int lamps;
+	int person;
+	size_t i;
+	size_t j;
+	size_t k;
+
+	scanf("%d%d", &lamps, &person);
+
+	int b[1000] = {0};
+	
+	for (i = 1 ; i <= person ; i++){
+		for(j = 1 ; j <=lamps ; j++){
+			if(j % i == 0){
+				b[j]++;
+			}
+		}
+	}
+	
+	for(k = 1 ; k <= lamps; k++){
+		if( b[k]% 2 != 0 ){
+			printf( "%d " , k);	
+		}
+	}
+		
+	
+	system("pause");	
+}
