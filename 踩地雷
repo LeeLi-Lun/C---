@@ -1,8 +1,6 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
 
 int main(){
 	
@@ -10,21 +8,45 @@ int main(){
 	int n1;
 	int n2;
 	size_t i;
+	size_t j;
+	size_t k;
 	
 	srand(time(NULL));
 	
-	char surface[10][10]={'0'};
+	int surface[10][10]={0};
  		
 	bomb = 21 + rand() % 10;
 	
-	for(i = 1 ; i <=bomb ; i++){
-		n1 = 1 + rand() % 10;
- 		n2 = 1 + rand() % 10;
- 		surface[n1][n2] = {'@'};
- 		
+	for(i = 1 ; i <= bomb ; i++){
+		n1 = rand() % 10;
+ 		n2 = rand() % 10;
+ 		surface[n1][n2] = 9;
  	}
+ 	
+	while(surface[j][k]== 9){
 	
+	}
+ 	
+ 	for(j = 0 ; j<=10 ; j++){
+ 		for(k = 0 ; k<=10 ; k++ ){
+			if(surface[j][k]== 9){
+				printf("@ ");
+	 		}
+	 		else if(surface[j][k]== 0){
+				printf("_ ");
+	 		}
+	 		else{
+			 	printf("%d ", surface[j][k]);
+	 		}
+	 		
+	 		if(k == 10){
+				printf("\n");
+	 		}
+ 		}
+ 		
+	}
 	system("pause");	
 }
 
 
+	
