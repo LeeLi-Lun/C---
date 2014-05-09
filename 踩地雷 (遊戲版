@@ -25,9 +25,13 @@ int main(){
     
     printf("(Row)\n");
     printf("-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-\n");
-    scanf("Row: %d", &row);
-    scanf("Column: %d", &column);
-    scanf("Action(1: dig 2: flag 3: unsure): %d", &action);
+    
+    printf("Row: ");
+    scanf("%d", &row);
+    printf("Column: ");
+    scanf("%d", &column);
+    printf("Action(1: dig 2: flag 3: unsure): ");
+    scanf("%d", &action);
     	
 
 	system("pause");	
