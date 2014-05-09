@@ -26,7 +26,14 @@ int main(){
  	for(j = 0 ; j<= 9 ; j++){
  		for(k = 0 ; k<= 9 ; k++ ){
             if(surface[j][k]== 9){
-                                 
+                surface[j+1][k-1]++;
+                surface[j+1][k]++;  
+                surface[j+1][k+1]++;  
+                surface[j][k-1]++;   
+                surface[j][k+1]++;  
+                surface[j-1][k-1]++;  
+                surface[j-1][k]++;  
+                surface[j-1][k+1]++;                  
             }
         }
      }
