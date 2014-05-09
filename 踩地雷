@@ -10,15 +10,15 @@ int main(){
 	size_t i;
 	size_t j;
 	size_t k;
-	int surface[10][10];
+	int surface[12][12];
 	
 	srand(time(NULL));
 	
-	for(j = 0 ; j<= 9 ; j++){
- 		for(k = 0 ; k<= 9 ; k++ ){
+	for(j = 0 ; j<= 11 ; j++){
+ 		for(k = 0 ; k<= 11 ; k++ ){
 	        surface[j][k]= 0;
         }
-   }
+    }
  		
 	bomb = 21 + rand() % 10;
 	
@@ -28,8 +28,8 @@ int main(){
  		surface[n1][n2] = 9;
  	}
  	
- 	for(j = 0 ; j<= 9 ; j++){
- 		for(k = 0 ; k<= 9 ; k++ ){
+ 	for(j = 1 ; j<= 10 ; j++){
+ 		for(k = 1 ; k<= 10 ; k++ ){
             if(surface[j][k]>= 9){
                 surface[j+1][k-1]++;
                 surface[j+1][k]++;  
@@ -44,8 +44,8 @@ int main(){
      }
  	
  	
- 	for(j = 0 ; j<= 9 ; j++){
- 		for(k = 0 ; k<= 9 ; k++ ){
+ 	for(j = 1 ; j<= 10 ; j++){
+ 		for(k = 1 ; k<= 10 ; k++ ){
 			if(surface[j][k]>= 9){
 				printf("@ ");
 	 		}
@@ -55,7 +55,7 @@ int main(){
 	 		else{
 			 	printf("%d ", surface[j][k] );
 	 		}
-	 		if(k == 9){
+	 		if(k == 10){
 				printf("\n");
 	 		}
  		}
