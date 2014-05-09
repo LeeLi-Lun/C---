@@ -23,12 +23,8 @@ int main(){
  		surface[n1][n2] = 9;
  	}
  	
-	while(surface[j][k]== 9){
-	
-	}
- 	
- 	for(j = 0 ; j<=10 ; j++){
- 		for(k = 0 ; k<=10 ; k++ ){
+ 	for(j = 0 ; j<= 9 ; j++){
+ 		for(k = 0 ; k<= 9 ; k++ ){
 			if(surface[j][k]== 9){
 				printf("@ ");
 	 		}
@@ -36,14 +32,12 @@ int main(){
 				printf("_ ");
 	 		}
 	 		else{
-			 	printf("%d ", surface[j][k]);
+			 	printf("%d ", surface[j][k] );
 	 		}
-	 		
-	 		if(k == 10){
+	 		if(k == 9){
 				printf("\n");
 	 		}
  		}
- 		
 	}
 	system("pause");	
 }
