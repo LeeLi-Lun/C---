@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define MAX 10
+
+int surface[MAX+2][MAX+2];
+int display[MAX+2][MAX+2];
+
+enum Status{CONTINUE, WON, LOST};
+void setGame(void);
+void displayGame(void);
+
+int main(){
+	int row;
+	int column;
+	int action;
+
+		
+	srand(time(NULL));
+	
+    setGame();	
+    printf("===========================================\n");
+    printf("    1  2  3  4  5  6  7  8  9  10  (Column)\n"); 
+    printf("-------------------------------------------\n");
+    
+    printf("(Row)\n");
+    printf("-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-\n");
+    scanf("Row: %d", &row);
+    scanf("Column: %d", &column);
+    scanf("Action(1: dig 2: flag 3: unsure): %d", &action);
+    	
+
+	system("pause");	
+}
+
+void setGame(){
+    
+    int bomb;
+	int n1;
+	int n2;
+	size_t i;
+	size_t j;
+	size_t k;	
+ 		
+	bomb = 11 + rand() % MAX;
+	
+	for(i = 1 ; i <= bomb ; i++){
+		n1 = rand() % MAX;
+ 		n2 = rand() % MAX;
+ 		surface[n1][n2] = 9;
+ 	}
+ 	
+ 	for(j = 1 ; j<= MAX ; j++){
+ 		for(k = 1 ; k<= MAX ; k++ ){
+            if(surface[j][k]>= 9){
+                surface[j+1][k-1]++;
+                surface[j+1][k]++;  
+                surface[j+1][k+1]++;  
+                surface[j][k-1]++;   
+                surface[j][k+1]++;  
+                surface[j-1][k-1]++;  
+                surface[j-1][k]++;  
+                surface[j-1][k+1]++;                  
+            }
+        }
+     }
+}
+void displayGame(){
+        
+     size_t a;
+     size_t b;
+        
+     for(a = 0 ; a<= MAX+1 ; a++){
+         for(b = 0 ; b<= MAX+1 ; b++ ){
+             display[a][b]= -1;
+        }
+    }  
+}
+
+
+	
