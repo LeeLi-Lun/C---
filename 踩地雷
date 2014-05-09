@@ -10,10 +10,15 @@ int main(){
 	size_t i;
 	size_t j;
 	size_t k;
+	int surface[10][10];
 	
 	srand(time(NULL));
 	
-	int surface[10][10]={0};
+	for(j = 0 ; j<= 9 ; j++){
+ 		for(k = 0 ; k<= 9 ; k++ ){
+	        surface[j][k]= 0;
+        }
+   }
  		
 	bomb = 21 + rand() % 10;
 	
@@ -25,7 +30,7 @@ int main(){
  	
  	for(j = 0 ; j<= 9 ; j++){
  		for(k = 0 ; k<= 9 ; k++ ){
-            if(surface[j][k]== 9){
+            if(surface[j][k]>= 9){
                 surface[j+1][k-1]++;
                 surface[j+1][k]++;  
                 surface[j+1][k+1]++;  
