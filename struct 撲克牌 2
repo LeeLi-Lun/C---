@@ -1,1 +1,77 @@
-YA
+
+#include "stdafx.h"
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
+#define CARDS 52
+
+
+typedef struct bitCard{                                  
+   unsigned int face : 4;       
+   unsigned int suit : 2;      
+   unsigned int color : 1;   
+} Card;            
+
+void fillDeck( Card * const wDeck ); 
+void deal (Card * const wDeck, const char * wFace[],const char * wSuit[], const char * wColor[]); 
+void shuffle(Card * const wDeck);
+
+int main( void )
+{ 
+   Card deck[ CARDS ];
+
+   const char *faces[] = { "Ace", "Deuce", "Three", "Four", "Five",
+		"Six", "Seven", "Eight", "Nine", "Ten",
+		"Jack", "Queen", "King" };
+
+	const char *suits[] = { "Hearts", "Diamonds", "Clubs", "Spades" };
+
+	const char *colors[] = {"Red","Black"};
+
+	srand(time(NULL));
+
+   fillDeck( deck );
+   shuffle( deck );
+   deal( deck, faces, suits,colors );
+} 
+
+void fillDeck( Card * const wDeck )
+{ 
+   size_t i; 
+  
+   for ( i = 0; i < CARDS; ++i ) { 
+      wDeck[ i ].face = i % (CARDS / 4); 
+      wDeck[ i ].suit = i / (CARDS / 4);  
+      wDeck[ i ].color = i / (CARDS / 2);
+   } 
+} 
+
+
+void deal(Card * const wDeck, const char * wFace[],const char * wSuit[], const char * wColor[])
+{
+   size_t k1; 
+ //  size_t k2;
+   
+   for ( k1 = 0; k1 < 5; k1++ ) { 
+      printf( "Card:%3d  Suit:%2d  Color:%2d   ",
+        wFace[ wDeck[ k1 ].face], wSuit[wDeck[ k1 ].suit], wColor[wDeck[ k1 ].color] );
+} 
+
+void shuffle(Card * const wDeck){
+	size_t i;
+	size_t j;
+
+	Card temp;
+
+	for (i = 0; i < CARDS; ++i) {
+		j = rand() % CARDS;
+		temp = wDeck[i];
+		wDeck[i] = wDeck[j];
+		wDeck[j] = temp;
+	}
+}
+
+ 
+
+
+	
