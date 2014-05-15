@@ -1,3 +1,6 @@
+// GG.cpp : 定義主控台應用程式的進入點。
+//
+
 #include "stdafx.h"
 #include <stdlib.h>
 #include <time.h>
@@ -12,8 +15,8 @@ typedef struct bitCard{
 } Card;
 
 void fillDeck(Card * const wDeck);
-void deal(Card * const wDeck, const char * wFace[], const char * wSuit[], const char * wColor[]);
 void shuffle(Card * const wDeck);
+void deal(Card * const wDeck, const char * wFace[], const char * wSuit[], const char * wColor[]);
 
 int main(void)
 {
@@ -46,19 +49,6 @@ void fillDeck(Card * const wDeck)
 		wDeck[i].color = i / (CARDS / 2);
 	}
 }
-
-
-void deal(Card * const wDeck, const char * wFace[], const char * wSuit[], const char * wColor[])
-{
-	size_t k1;
-	//  size_t k2;
-
-	for (k1 = 0; k1 < 5; k1++) {
-		printf("Card:%+5s  Suit:%+5s  Color:%+5s\n ",
-			wFace[wDeck[k1].face], wSuit[wDeck[k1].suit], wColor[wDeck[k1].color]);
-	}
-}
-
 void shuffle(Card * const wDeck){
 	size_t i;
 	size_t j;
@@ -72,3 +62,41 @@ void shuffle(Card * const wDeck){
 		wDeck[j] = temp;
 	}
 }
+
+void deal(Card * const wDeck, const char * wFace[], const char * wSuit[], const char * wColor[])
+{
+	size_t k1;
+	size_t k2;
+	int flower;
+	int display[13] = {0};
+
+	for (k1 = 0; k1 < 5; k1++) {
+		printf("Card:%+5s  Suit:%+5s  Color:%+5s\n ",
+			wFace[wDeck[k1].face], wSuit[wDeck[k1].suit], wColor[wDeck[k1].color]);
+			
+		display[wDeck[k1].face] ++;
+
+		if (wDeck[k1].suit == wDeck[k1+1].suit){
+			flower++;
+		}
+	}
+
+	for (k2 = 0; k2 < 13 k2++){
+		if (number == 1){
+			printf("Your have a pair of %s\n", );
+		}
+		if (number == 2){
+			printf("Your have two pairs \n");
+		}
+		if (number == 3){
+			printf("Your have three of %s\n", );
+		}
+		if (number == 6){
+			printf("Your have four of %s\n", );
+		}
+		if (flower == 4){
+			printf("Your have a flush ");
+		}
+	}
+}
+
