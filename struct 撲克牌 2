@@ -67,7 +67,8 @@ void deal(Card * const wDeck, const char * wFace[], const char * wSuit[], const 
 {
 	size_t k1;
 	size_t k2;
-	int flower;
+	int number = 0;
+	int flower = 0;
 	int display[13] = {0};
 
 	for (k1 = 0; k1 < 5; k1++) {
@@ -80,23 +81,27 @@ void deal(Card * const wDeck, const char * wFace[], const char * wSuit[], const 
 			flower++;
 		}
 	}
+	printf("\n");
 
-	for (k2 = 0; k2 < 13 k2++){
-		if (number == 1){
-			printf("Your have a pair of %s\n", );
+	for (k2 = 0; k2 < 13; k2++){
+		if (display[k2] == 2){
+			printf("Your have a pair of %s\n", wFace[k2]);
+			number++;
 		}
 		if (number == 2){
 			printf("Your have two pairs \n");
+			number = 0; 
 		}
-		if (number == 3){
-			printf("Your have three of %s\n", );
+		if (display[k2] == 3){
+			printf("Your have three of %s\n", wFace[k2]);
 		}
-		if (number == 6){
-			printf("Your have four of %s\n", );
-		}
-		if (flower == 4){
-			printf("Your have a flush ");
+		if (display[k2] == 4){
+			printf("Your have four of %s\n", wFace[k2]);
 		}
 	}
+	if (flower == 5){
+		printf("Your have a flush ");
+	}
+
 }
 
