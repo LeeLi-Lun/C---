@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+int main(){
+    
+   double word = 0.0;
+   double all_length = 0.0;
+   double counter = 0.0;
+   char sentence[333];
+   char *tokenPtr ;
+   
+   fgets(sentence, 333 , stdin);
+   
+   tokenPtr = strtok(sentence, " ");
+   
+   while(tokenPtr != NULL){
+      word = strlen(tokenPtr);
+      tokenPtr = strtok(NULL," ");
+      all_length += word;
+      counter++;               
+   }
+   
+   printf("%f", (all_length-1) / counter);
+   
+    system("pause");
+}
