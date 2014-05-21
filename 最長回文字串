@@ -20,7 +20,7 @@ system('pause');
 }
 
 void reverse(const char* const sPtr){
-  if(sPtr[0] == '\0'){
+  if(sPtr[0] == '\0' && isalpha(sPtr[0]) ){
     return;
   }
   else{
