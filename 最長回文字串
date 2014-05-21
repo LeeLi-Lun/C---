@@ -2,28 +2,32 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#define SIZE 1000
 
-void reverse(const char* const sPtr);
 
 int main(){
-  char sentence[1000];
-  char reverse_sentence[1000];
+  size_t i;
+  size_t j;
+  char sentence[SIZE];
+  char alpha[SIZE]
+  char reverse_alpha[SIZE];
   
-  fgets(sentence, 1000, stdin);
+  fgets(sentence, SIZE, stdin);
   
-  reverse(sentenece);
+  for(i = 0 ;i < SIZE; i++){
+    if(isalpha( sentence[i] )){
+     alpha[i] = sentence[i];
+    }
+  }
   
-  reverse_sentence = sentence;
+  for(j = SIZE-1; j >= 0, j--)
+    reverse_alpha[ (-j)+(SIZE-1) ] = alpha[j];
+    
+  reverse_alpha[SIZE] ='\0';
   
+  strstr(alpha, reverse_alpha);
 
 system('pause');
 }
 
-void reverse(const char* const sPtr){
-  if(sPtr[0] == '\0' && isalpha(sPtr[0]) ){
-    return;
-  }
-  else{
-    reverse(&sPtr[1]);
-  }
-}
+
