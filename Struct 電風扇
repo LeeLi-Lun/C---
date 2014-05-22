@@ -5,37 +5,15 @@ typedef struct{
 	int  speed;
 	int  on;
 	double radius;
-	char * color;
+	const char * color;
 }Fan;
 
+enum speeds { SLOW, MEDIUM, FAST};
 char * toString (Fan wFan);
 
 int main(){
-  struct Fan fan1;
-  struct Fan fan2;
-  
-  const char *speeds[] = {"SLOW","MEDIUM","FAST"};
-  
-  const char *on[] = {"ture","flase"};
-  
-  const char *colors[] = {"yellow","blue"};
-  #include <stdlib.h>
-#include <stdio.h>
-
-typedef struct{
-	int  speed;
-	int  on;
-	double radius;
-	char * color;
-}Fan;
-
-char * toString (Fan wFan);
-
-int main(){
-  struct Fan fan1;
-  struct Fan fan2;
-  
-  const char *speeds[] = {"SLOW","MEDIUM","FAST"};
+   Fan fan1;
+   Fan fan2;
   
   const char *on[] = {"ture","flase"};
   
@@ -44,12 +22,12 @@ int main(){
   fan1.speed = 2; 
   fan1.on = 0;
   fan1.radius = 10.0;
-  fan1.color = color[1];
+  fan1.color = colors[0];
   
   fan2.speed = 1; 
   fan2.on = 1;
   fan2.radius = 5.0;
-  fan2.color = color[2];
+  fan2.color = colors[1];
   
   toString(fan1);
   toString(fan2);
@@ -57,44 +35,13 @@ int main(){
 }
 
 char * toString (Fan wFan){
-    if(wFan.on == 0 {
-		printf("%s%s %s%s %s%d","Speed:",speeds[fan1.speed],
-				"Color:", fan1.color, "Radius", fan1.radius);
+    if(wFan.on == 0 ){
+		printf("%s%s %s%s %s%d","Speed:",speeds{wFan.speed},
+				"Color:", wFan.color, "Radius", wFan.radius);
 	}
 	else{
-		printf("%s %s%s %s%d","The fan is off", "Color:", fan2.color, 
-				"Radius", fan2.radius);
-	}
-	
-}
-
-  
-
-
-
-  fan1.speed = 2; 
-  fan1.on = 0;
-  fan1.radius = 10.0;
-  fan1.color = color[1];
-  
-  fan2.speed = 1; 
-  fan2.on = 1;
-  fan2.radius = 5.0;
-  fan2.color = color[2];
-  
-  toString(fan1);
-  toString(fan2);
-  
-}
-
-char * toString (Fan wFan){
-    if(wFan.on == 0 {
-		printf("%s%s %s%s %s%d","Speed:",speeds[fan1.speed],
-				"Color:", fan1.color, "Radius", fan1.radius);
-	}
-	else{
-		printf("%s %s%s %s%d","The fan is off", "Color:", fan2.color, 
-				"Radius", fan2.radius);
+		printf("%s %s%s %s%d","The fan is off", "Color:", wFan.color, 
+				"Radius", wFan.radius);
 	}
 	
 }
