@@ -6,26 +6,25 @@
 
 
 int main(){
-  size_t i;
-  size_t j;
+  size_t i ;
+  size_t j ;
+  int a = 0;
   char sentence[SIZE];
   char alpha[SIZE]
-  char reverse_alpha[SIZE];
+  char alphas[SIZE];
   
   fgets(sentence, SIZE, stdin);
   
   for(i = 0 ;i < SIZE; i++){
     if(isalpha( sentence[i] )){
-     alpha[i] = sentence[i];
+     alpha[a++] = sentence[i];
     }
   }
   
-  for(j = SIZE-1; j >= 0, j--)
-    reverse_alpha[ (-j)+(SIZE-1) ] = alpha[j];
-    
-  reverse_alpha[SIZE] ='\0';
+  for(j = 0 ;j < SIZE; j++){
+     alphas[j] = toupper( alpha[j] );
+  }
   
-  strstr(alpha, reverse_alpha);
 
 system('pause');
 }
