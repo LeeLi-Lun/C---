@@ -8,6 +8,7 @@
 int main(){
   size_t i ;
   size_t j ;
+  size_t k ;
   int a = 0;
   char sentence[SIZE];
   char alpha[SIZE]
@@ -21,10 +22,13 @@ int main(){
     }
   }
   
-  for(j = 0 ;j < SIZE; j++){
+  for(j = 0 ;j < SIZE; j++)
      alphas[j] = toupper( alpha[j] );
-  }
   
+  for(k = SIZE-1; k >= 0, k--)
+    reverse_alpha[ (-k)+(SIZE-1) ] = alphas[k];
+    
+    reverse_alpha[SIZE] ='\0';
 
 system('pause');
 }
