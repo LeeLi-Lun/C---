@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#define SIZE 1000
+#define SIZE 100
 
 
 int main(){
@@ -10,9 +10,11 @@ int main(){
   size_t j ;
   size_t k ;
   int a = 0;
+  int b = 0;
   char sentence[SIZE];
-  char alpha[SIZE]
-  char alphas[SIZE];
+  char alpha[SIZE];
+  char upper_alpha[SIZE];
+  char reverse_alpha[SIZE];
   
   fgets(sentence, SIZE, stdin);
   
@@ -23,14 +25,19 @@ int main(){
   }
   
   for(j = 0 ;j < SIZE; j++)
-     alphas[j] = toupper( alpha[j] );
-  
-  for(k = SIZE-1; k >= 0, k--)
-    reverse_alpha[ (-k)+(SIZE-1) ] = alphas[k];
+     upper_alpha[j] = toupper( alpha[j] );
+     
+     
+  for(k = SIZE -1 ; k >=0 ; k--)
+    reverse_alpha[b++] = upper_alpha[k];
     
-    reverse_alpha[SIZE] ='\0';
+  reverse_alpha[b] = '\0';
+    
+  if(upper_alpha == reverse_alpha){
+  	puts( sentence ); 
+  }
 
-system('pause');
+system("pause");
 }
 
 
