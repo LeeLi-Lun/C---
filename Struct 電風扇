@@ -36,12 +36,12 @@ int main(){
 
 char * toString (Fan wFan){
     if(wFan.on == 0 ){
-		printf("%s%s %s%s %s%d","Speed:",speeds{wFan.speed},
-				"Color:", wFan.color, "Radius", wFan.radius);
+		printf("%s%s %s%s %s%f","Speed:",speeds.(wFan.speed),
+				"Color:", wFan.color, "Radius:", wFan.radius);
 	}
 	else{
-		printf("%s %s%s %s%d","The fan is off", "Color:", wFan.color, 
-				"Radius", wFan.radius);
+		printf("%s %s%s %s%f","The fan is off", "Color:", wFan.color, 
+				"Radius:", wFan.radius);
 	}
 	
 }
