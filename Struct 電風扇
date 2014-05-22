@@ -1,14 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+enum speeds { SLOW, MEDIUM, FAST};
+
 typedef struct{
-	int  speed;
+	speeds  speed;
 	int  on;
 	double radius;
 	const char * color;
 }Fan;
 
-enum speeds { SLOW, MEDIUM, FAST};
 char * toString (Fan wFan);
 
 int main(){
