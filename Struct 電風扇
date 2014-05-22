@@ -19,12 +19,12 @@ int main(){
   
   const char *colors[] = {"yellow","blue"};
   
-  fan1.speed = 2; 
+  fan1.speed = FAST; 
   fan1.on = 0;
   fan1.radius = 10.0;
   fan1.color = colors[0];
   
-  fan2.speed = 1; 
+  fan2.speed = MEDIUM; 
   fan2.on = 1;
   fan2.radius = 5.0;
   fan2.color = colors[1];
@@ -32,15 +32,18 @@ int main(){
   toString(fan1);
   toString(fan2);
   
+  system("pause");
 }
 
 char * toString (Fan wFan){
+	const char *speedss[] = {"slow","medium","fast"};
+	
     if(wFan.on == 0 ){
-		printf("%s%s %s%s %s%f","Speed:",speeds.(wFan.speed),
+		printf("%s%s %s%s %s%.2f\n","Speed:",speedss[wFan.speed],
 				"Color:", wFan.color, "Radius:", wFan.radius);
 	}
 	else{
-		printf("%s %s%s %s%f","The fan is off", "Color:", wFan.color, 
+		printf("%s %s%s %s%.2f\n","The fan is off", "Color:", wFan.color, 
 				"Radius:", wFan.radius);
 	}
 	
