@@ -6,6 +6,7 @@
 
 
 int main(){
+	
   size_t i ;
   size_t j ;
   size_t k ;
@@ -23,6 +24,8 @@ int main(){
      alpha[a++] = sentence[i];
     }
   }
+  alpha[SIZE] = '\0';
+  
   
   for(j = 0 ;j < SIZE; j++)
      upper_alpha[j] = toupper( alpha[j] );
