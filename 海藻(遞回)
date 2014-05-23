@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+enum color{GREEN,YELLOW};
+void plant( int day);
+
+int main(){
+   
+    int day;
+    scanf("%d", &day);
+    
+    plant(day);
+    
+    system("pause");    
+}
+
+void plant( int day){
+     
+    if(day == 3 ){
+       printf("%d",GREEN);
+       printf("%d",YELLOW);
+       return;
+    }
+    else if(day == 1){
+         printf("%d",GREEN);
+         return;
+    }
+    else if(day == 2){
+         printf("%d",YELLOW);
+         return;
+    }
+    else{
+       plant(day -2);
+       plant(day -1);
+    } 
+     
+}
