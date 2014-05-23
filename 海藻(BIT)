@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(){
+   
+    size_t i;
+    size_t j;
+    int day;
+    int max[10];
+    int mask = 1;
+    int plant = 0;
+    int display = 0;
+
+    scanf("%d", &day);
+    
+    max[1] = 1;
+    max[2] = 1;
+    for(i = 3; i <= day; i++){
+         max[i] = max[i-1] + max[i-2];      
+    }
+    
+    for(j = 1; j <= day; j++){
+     if( ! (mask & plant) ){
+          display <<= 1;
+          display+=1;
+     }
+     else{
+        display <<= 2;
+        display+=1;      
+     } 
+     plant = display;
+     mask << max[j];;
+          
+    }
+    
+   
+    
+   system("pause");    
+}
+
+
