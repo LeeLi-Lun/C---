@@ -1,13 +1,14 @@
-// U10216012.cpp : 定義主控台應用程式的進入點。
+// YA.cpp : 定義主控台應用程式的進入點。
 //
 
 #include "stdafx.h"
 #include <stdio.h>
 
-struct person {                              
+struct person {
+   int number;
    char lastName[ 15 ]; 
    char firstName[ 15 ];  
-   char age[4];
+   char* age[4];
 };                 
  
 unsigned int enterChoice( void );
@@ -17,31 +18,10 @@ void newRecord( FILE *fPtr );
 void deleteRecord( FILE *fPtr );
 
 int main( void ){ 
-	
+
 	FILE *cfPtr;
     unsigned int choice;
 
-	 if ( ( cfPtr = fopen( "nameage.dat", "w" ) ) == NULL ) {
-      puts( "File could not be opened." );
-   } 
-   else { 
-      puts( "Enter the lastName, firstName, and age." );
-      puts( "Enter EOF to end input." );
-      printf( "%s", "? " );
-
-      scanf( "%c%c%c", &lastName, &name, &balance );
-
-      
-      while ( !feof( stdin ) ) { 
-         fprintf( cfPtr, "%d %s %.2f\n", account, name, balance );
-         printf( "%s", "? " );
-         scanf( "%d%29s%lf", &account, name, &balance );
-      } 
-      
-      fclose( cfPtr ); 
-   } 
- 
-   
 
    if ( ( cfPtr = fopen( "nameage.dat", "w" ) ) == NULL ) {
       puts( "File could not be opened." );
@@ -49,24 +29,12 @@ int main( void ){
    else { 
    
       while ( ( choice = enterChoice() ) != 5 ) { 
-         switch ( choice ) { 
-           
-            case 1:
-               textFile( cfPtr );
-               break;
-            
-            case 2:
-               updateRecord( cfPtr );
-               break;
-           
-            case 3:
-               newRecord( cfPtr );
-               break;
-           
-            case 4:
-               deleteRecord( cfPtr );
-               break;
-         
+        
+		  switch ( choice ) { 
+            case 1:textFile( cfPtr ); break;
+            case 2:updateRecord( cfPtr );break;
+            case 3:newRecord( cfPtr ); break;
+            case 4: deleteRecord( cfPtr );break;
             default:
                puts( "Incorrect choice" );
                break;
@@ -78,9 +46,10 @@ int main( void ){
 }
 
 void textFile( FILE *readPtr ){ 
+
    FILE *writePtr;  
 
-   struct person man = {  "unassign", "", "0"};
+   struct person man = { 0, "unassign", "", "0"};
 
   
    if ( ( writePtr = fopen( "nameage.dat", "w" ) ) == NULL ) {
@@ -91,7 +60,7 @@ void textFile( FILE *readPtr ){
       puts( "Enter EOF to end input." );
       printf( "%s", "? " );
 
-      scanf( "%14s%14c%4s", &lastName, &firstName, &balance );
+      scanf( "%14s%14c%4s", &writePtr.lastName, &firstName, &balance );
 
       
       while ( !feof( stdin ) ) { 
@@ -247,5 +216,4 @@ unsigned int enterChoice( void )
    scanf( "%u", &menuChoice ); // receive choice from user
    return menuChoice;
 } // end function enterChoice
-
 
