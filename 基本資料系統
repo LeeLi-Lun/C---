@@ -8,11 +8,11 @@ struct person {
    int number;
    char lastName[ 15 ]; 
    char firstName[ 15 ];  
-   char* age[4];
+   char age[4];
 };                 
  
 unsigned int enterChoice( void );
-void textFile( FILE *readPtr );
+void setFile( FILE *readPtr );
 void updateRecord( FILE *fPtr );
 void newRecord( FILE *fPtr );
 void deleteRecord( FILE *fPtr );
@@ -22,19 +22,18 @@ int main( void ){
 	FILE *cfPtr;
     unsigned int choice;
 
-
    if ( ( cfPtr = fopen( "nameage.dat", "w" ) ) == NULL ) {
       puts( "File could not be opened." );
    } 
    else { 
+	   setFile( cfPtr );
    
-      while ( ( choice = enterChoice() ) != 5 ) { 
+      while ( ( choice = enterChoice() ) != 4 ) { 
         
-		  switch ( choice ) { 
-            case 1:textFile( cfPtr ); break;
-            case 2:updateRecord( cfPtr );break;
-            case 3:newRecord( cfPtr ); break;
-            case 4: deleteRecord( cfPtr );break;
+		  switch ( choice ) {           
+            case 1:updateRecord( cfPtr );break;
+            case 2:newRecord( cfPtr ); break;
+            case 3: deleteRecord( cfPtr );break;
             default:
                puts( "Incorrect choice" );
                break;
@@ -45,29 +44,19 @@ int main( void ){
    } 
 }
 
-void textFile( FILE *readPtr ){ 
+void setFile( FILE *readPtr ){ 
 
    FILE *writePtr;  
-
+   size_t i;
    struct person man = { 0, "unassign", "", "0"};
-
   
    if ( ( writePtr = fopen( "nameage.dat", "w" ) ) == NULL ) {
       puts( "File could not be opened." );
    } 
       else { 
-      puts( "Enter the lastName, firstName, and age." );
-      puts( "Enter EOF to end input." );
-      printf( "%s", "? " );
-
-      scanf( "%14s%14c%4s", &writePtr.lastName, &firstName, &balance );
-
-      
-      while ( !feof( stdin ) ) { 
-         fprintf( cfPtr, "%d %s %.2f\n", account, name, balance );
-         printf( "%s", "? " );
-         scanf( "%d%29s%lf", &account, name, &balance );
-      } 
+		  for(i = 0; i < 100; i++){
+		  
+		  }
       
       fclose( writePtr); 
    } 
@@ -200,18 +189,17 @@ void newRecord( FILE *fPtr )
 } // end function newRecord
 
 // enable user to input menu choice
+
 unsigned int enterChoice( void )
 { 
    unsigned int menuChoice; // variable to store user's choice
 
    // display available options
    printf( "%s", "\nEnter your choice\n"
-      "1 - store a formatted text file of accounts called\n"
-      "    \"accounts.txt\" for printing\n"
-      "2 - update an account\n"
-      "3 - add a new account\n"
-      "4 - delete an account\n"
-      "5 - end program\n? " );
+      "1 - update an account\n"
+      "2 - add a new account\n"
+      "3 - delete an account\n"
+      "4 - end program\n? " );
 
    scanf( "%u", &menuChoice ); // receive choice from user
    return menuChoice;
