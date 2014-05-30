@@ -68,12 +68,8 @@ void textFile( FILE *readPtr )
 
 void updateRecord( FILE *fPtr )
 { 
+   struct person man;
    unsigned int account; 
-   char newlastName[ 15 ]; 
-   char newfirstName[ 15 ];  
-   char newage[4];
-
-   struct person man = { 0, "unassign", "", "0"};
 
    printf( "%s", "Enter account to update ( 1 - 100 ): " );
    scanf( "%d", &account );
@@ -88,14 +84,10 @@ void updateRecord( FILE *fPtr )
    } 
    else { 
       printf("%-4d%-14s%-14s%3s\n\n",man.number, man.lastName,         
-               man.firstName, man.age );    
-    
+               man.firstName, man.age ); 
       printf( "%s", "Enter the new lasName, firstName ,age: " );
-      scanf( "%14s%14s%3s", &newlastName, &newfirstName, &newage  );
-      man.lastName = newlastName;          
-      man.firstName = newfirstName;
-      man.age = newage;
-      
+      scanf( "%14s%14s%3s", &man.lastName, &man.firstName,&man.age  );
+
       printf("%-4d%-14s%-14s%3s\n\n",man.number, man.lastName,         
                man.firstName, man.age );  
      
@@ -123,7 +115,7 @@ void deleteRecord( FILE *fPtr )
    }
    else {              
       fseek( fPtr, ( order - 1 ) * sizeof( struct person ), SEEK_SET );
-      fwrite( &man, sizeof( struct person ), 1, fPtr ); 
+      fwrite( &blankMan, sizeof( struct person ), 1, fPtr ); 
    } 
 } 
 
