@@ -1,5 +1,5 @@
 
-#include "stdafx.h"
+#include <stdlib.h>
 #include <stdio.h>
 
 struct person {
@@ -10,7 +10,7 @@ struct person {
 };                 
  
 unsigned int enterChoice( void );
-void setFile( FILE *readPtr );
+void textFile( FILE *readPtr );
 void updateRecord( FILE *fPtr );
 void newRecord( FILE *fPtr );
 void deleteRecord( FILE *fPtr );
@@ -19,127 +19,115 @@ int main( void ){
 
 	FILE *cfPtr;
     unsigned int choice;
-
-   if ( ( cfPtr = fopen( "nameage.dat", "w" ) ) == NULL ) {
-      puts( "File could not be opened." );
-   } 
-   else { 
-	   setFile( cfPtr );
-   
-      while ( ( choice = enterChoice() ) != 4 ) { 
-        
-		  switch ( choice ) {           
-            case 1:updateRecord( cfPtr );break;
-            case 2:newRecord( cfPtr ); break;
-            case 3: deleteRecord( cfPtr );break;
-            default:
-               puts( "Incorrect choice" );
-               break;
+    
+    if ( ( cfPtr = fopen( "nameage.dat", "w") ) == NULL ) {
+        puts( "File could not be opened." );
+    } 
+    else { 
+        while ( ( choice = enterChoice() ) != 5 ) { 
+            switch ( choice ) { 
+                case 1: textFile( cfPtr ); break;
+                case 2:updateRecord( cfPtr ); break;
+                case 3: newRecord( cfPtr ); break;
+                case 4: deleteRecord( cfPtr );  break; 
+                default: puts( "Incorrect choice" );  break;
+            } 
          } 
-      } 
-
-      fclose( cfPtr ); 
-   } 
+    }
+    fclose( cfPtr );
 }
 
-void setFile( FILE *readPtr ){ 
+void textFile( FILE *readPtr )
+{ 
+   FILE *writePtr; 
+   int result; 
 
-   FILE *writePtr;  
-   size_t i;
    struct person man = { 0, "unassign", "", "0"};
-  
-   if ( ( writePtr = fopen( "nameage.dat", "w" ) ) == NULL ) {
+
+   if ( ( writePtr = fopen( "nameage.txt", "w" ) ) == NULL ) {
       puts( "File could not be opened." );
+   }
+   else { 
+      rewind( readPtr ); 
+      fprintf( writePtr, "%-4s%-14s%-14s%10s\n", 
+         "Number", "Last Name", "First Name","Age" );
+         
+      while ( !feof( readPtr ) ) { 
+         result = fread(&man, sizeof( struct person ), 1, readPtr);
+         
+         if ( result != 0 && man.number != 0 ) {
+            fprintf( writePtr, "%-4d%-14s%-14s%3s\n",
+               man.number, man.lastName,         
+               man.firstName, man.age );      
+         } 
+      } 
+      fclose( writePtr ); 
    } 
-      else { 
-		  for(i = 0; i < 100; i++){
-		  
-		  }
-      
-      fclose( writePtr); 
-   } 
- 
 } 
 
-
-
 void updateRecord( FILE *fPtr )
-
 { 
    unsigned int account; 
-   double transaction; 
+   char newlastName[ 15 ]; 
+   char newfirstName[ 15 ];  
+   char newage[4];
 
- 
-   struct clientData client = { 0, "", "", 0.0 };
+   struct person man = { 0, "unassign", "", "0"};
 
- 
    printf( "%s", "Enter account to update ( 1 - 100 ): " );
    scanf( "%d", &account );
-
-            
-   fseek( fPtr, ( account - 1 ) * sizeof( struct clientData ), 
+  
+   fseek( fPtr, ( account - 1 ) * sizeof( struct person ), 
       SEEK_SET );                                              
 
+   fread( &man, sizeof( struct person ), 1, fPtr );
 
-   fread( &client, sizeof( struct clientData ), 1, fPtr );
-
-  
-   if ( client.acctNum == 0 ) {
+   if ( man.number == 0 ) {
       printf( "Account #%d has no information.\n", account );
    } 
    else { 
-      printf( "%-6d%-16s%-11s%10.2f\n\n", 
-         client.acctNum, client.lastName, 
-         client.firstName, client.balance );
+      printf("%-4d%-14s%-14s%3s\n\n",man.number, man.lastName,         
+               man.firstName, man.age );    
     
-      printf( "%s", "Enter charge ( + ) or payment ( - ): " );
-      scanf( "%lf", &transaction );
-      client.balance += transaction; 
+      printf( "%s", "Enter the new lasName, firstName ,age: " );
+      scanf( "%s%s%s", &newlastName, &newfirstName, &newage  );
+      man.lastName = newlastName;          
+      man.firstName = newfirstName;
+      man.age = newage;
       
-      printf( "%-6d%-16s%-11s%10.2f\n", 
-         client.acctNum, client.lastName, 
-         client.firstName, client.balance );
-      
-                  
-      fseek( fPtr, ( account - 1 ) * sizeof( struct clientData ), 
-         SEEK_SET );                                              
+      printf("%-4d%-14s%-14s%3s\n\n",man.number, man.lastName,         
+               man.firstName, man.age );  
+     
+      fseek( fPtr, ( account - 1 ) * sizeof( struct person ), 
+           SEEK_SET );                                             
 
-            
-      fwrite( &client, sizeof( struct clientData ), 1, fPtr );
+      fwrite( &man, sizeof( struct person ), 1, fPtr );
    }
 } 
 
-
 void deleteRecord( FILE *fPtr )
 { 
-   struct clientData client; 
-   struct clientData blankClient = { 0, "", "", 0 }; 
+    struct person people;
+    struct person man = { 0, "unassign", "", "0"};
    
-   unsigned int accountNum; 
+   unsigned int number; 
 
-  
    printf( "%s", "Enter account number to delete ( 1 - 100 ): " );
-   scanf( "%d", &accountNum );
-
+   scanf( "%d", &number );
               
-   fseek( fPtr, ( accountNum - 1 ) * sizeof( struct clientData ), 
+   fseek( fPtr, ( number - 1 ) * sizeof( struct person ), 
       SEEK_SET );                                                 
+              
+   fread( &people, sizeof( struct person ), 1, fPtr );
 
-                               
-   fread( &client, sizeof( struct clientData ), 1, fPtr );
-
-  
-   if ( client.acctNum == 0 ) {
-      printf( "Account %d does not exist.\n", accountNum );
+   if ( people.number == 0 ) {
+      printf( "Account %d does not exist.\n", number );
    }
-   else { 
-                      
-      fseek( fPtr, ( accountNum - 1 ) * sizeof( struct clientData ), 
-         SEEK_SET );                                                 
-
+   else {              
+      fseek( fPtr, ( number - 1 ) * sizeof( struct person ), 
+      SEEK_SET );                                                  
        
-      fwrite( &blankClient,                          
-         sizeof( struct clientData ), 1, fPtr );     
+     fwrite( &man, sizeof( struct person ), 1, writePtr ); 
    } 
 } 
 
@@ -186,16 +174,16 @@ void newRecord( FILE *fPtr )
 } 
 
 
-
 unsigned int enterChoice( void )
 { 
    unsigned int menuChoice; 
-
    printf( "%s", "\nEnter your choice\n"
-      "1 - update an account\n"
-      "2 - add a new account\n"
-      "3 - delete an account\n"
-      "4 - end program\n? " );
+      "1 - store a formatted text file of accounts called\n"
+      "    \"nameage.txt\" for printing\n"
+      "2 - update an account\n"
+      "3 - add a new account\n"
+      "4 - delete an account\n"
+      "5 - end program\n? " );
 
    scanf( "%u", &menuChoice ); 
    return menuChoice;
