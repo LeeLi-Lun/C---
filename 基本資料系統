@@ -57,7 +57,7 @@ void textFile( FILE *readPtr )
          result = fread(&man, sizeof( struct person ), 1, readPtr);
          
          if ( result != 0 && man.number != 0 ) {
-            fprintf( writePtr, "%-4d%-14s%-14s%3s\n",
+            fprintf( readPtr, "%-4d%-14s%-14s%3s\n",
                man.number, man.lastName,         
                man.firstName, man.age );      
          } 
