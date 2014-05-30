@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 struct person {
-   int number;
+   unsigned int number;
    char lastName[ 15 ]; 
    char firstName[ 15 ];  
    char age[4];
@@ -35,6 +35,7 @@ int main( void ){
          } 
     }
     fclose( cfPtr );
+    system("pause");
 }
 
 void textFile( FILE *readPtr )
@@ -90,7 +91,7 @@ void updateRecord( FILE *fPtr )
                man.firstName, man.age );    
     
       printf( "%s", "Enter the new lasName, firstName ,age: " );
-      scanf( "%s%s%s", &newlastName, &newfirstName, &newage  );
+      scanf( "%14s%14s%3s", &newlastName, &newfirstName, &newage  );
       man.lastName = newlastName;          
       man.firstName = newfirstName;
       man.age = newage;
@@ -98,81 +99,60 @@ void updateRecord( FILE *fPtr )
       printf("%-4d%-14s%-14s%3s\n\n",man.number, man.lastName,         
                man.firstName, man.age );  
      
-      fseek( fPtr, ( account - 1 ) * sizeof( struct person ), 
-           SEEK_SET );                                             
-
+      fseek( fPtr, ( account - 1 ) * sizeof( struct person ),SEEK_SET ); 
       fwrite( &man, sizeof( struct person ), 1, fPtr );
    }
 } 
 
 void deleteRecord( FILE *fPtr )
 { 
-    struct person people;
-    struct person man = { 0, "unassign", "", "0"};
-   
-   unsigned int number; 
+   struct person man;
+   struct person blankMan = { 0, "unassign", "", "0"};
+   unsigned int order; 
 
    printf( "%s", "Enter account number to delete ( 1 - 100 ): " );
-   scanf( "%d", &number );
+   scanf( "%d", &order );
               
-   fseek( fPtr, ( number - 1 ) * sizeof( struct person ), 
+   fseek( fPtr, (order - 1 ) * sizeof( struct person ), 
       SEEK_SET );                                                 
               
    fread( &people, sizeof( struct person ), 1, fPtr );
 
    if ( people.number == 0 ) {
-      printf( "Account %d does not exist.\n", number );
+      printf( "Account %d does not exist.\n", order );
    }
    else {              
-      fseek( fPtr, ( number - 1 ) * sizeof( struct person ), 
-      SEEK_SET );                                                  
-       
-     fwrite( &man, sizeof( struct person ), 1, writePtr ); 
+      fseek( fPtr, ( number - 1 ) * sizeof( struct person ), SEEK_SET );
+      fwrite( &man, sizeof( struct person ), 1, writePtr ); 
    } 
 } 
-
 
 void newRecord( FILE *fPtr )
 { 
-  
-   struct clientData client = { 0, "", "", 0.0 };
-
-   unsigned int accountNum; 
-
+   struct person blankMan = { 0, "unassign", "", "0"};
+   unsigned int order; 
   
    printf( "%s", "Enter new account number ( 1 - 100 ): " );
-   scanf( "%d", &accountNum );
-
-                 
-   fseek( fPtr, ( accountNum - 1 ) * sizeof( struct clientData ), 
+   scanf( "%d", &order );
+              
+   fseek( fPtr, (order - 1 ) * sizeof( struct person ), 
       SEEK_SET );                                                 
+              
+   fread( &people, sizeof( struct person ), 1, fPtr );
 
-                             
-   fread( &client, sizeof( struct clientData ), 1, fPtr );
-
-   
-   if ( client.acctNum != 0 ) {
-      printf( "Account #%d already contains information.\n",
-         client.acctNum );
+   if ( man.number != 0 ) {
+      printf( "Account #%d already contains information.\n",man.number );
    } 
    else { 
-     
-      printf( "%s", "Enter lastname, firstname, balance\n? " );
-      scanf( "%14s%9s%lf", &client.lastName, &client.firstName, 
-         &client.balance );
+      printf( "%s", "Enter lastname, firstname, age\n? " );
+      scanf( "%14s%14s%3s", &newlastName, &newfirstName, &newage  );
 
-      client.acctNum = accountNum;
+      man.number = order;
       
-        
-      fseek( fPtr, ( client.acctNum - 1 ) *            
-         sizeof( struct clientData ), SEEK_SET );      
-
-                           
-      fwrite( &client,                               
-         sizeof( struct clientData ), 1, fPtr );     
+      fseek( fPtr, ( number - 1 ) * sizeof( struct person ), SEEK_SET );
+      fwrite( &man, sizeof( struct person ), 1, writePtr );
    } 
 } 
-
 
 unsigned int enterChoice( void )
 { 
