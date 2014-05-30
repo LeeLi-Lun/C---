@@ -116,20 +116,20 @@ void deleteRecord( FILE *fPtr )
    fseek( fPtr, (order - 1 ) * sizeof( struct person ), 
       SEEK_SET );                                                 
               
-   fread( &people, sizeof( struct person ), 1, fPtr );
+   fread( &man, sizeof( struct person ), 1, fPtr );
 
-   if ( people.number == 0 ) {
+   if ( man.number == 0 ) {
       printf( "Account %d does not exist.\n", order );
    }
    else {              
-      fseek( fPtr, ( number - 1 ) * sizeof( struct person ), SEEK_SET );
-      fwrite( &man, sizeof( struct person ), 1, writePtr ); 
+      fseek( fPtr, ( order - 1 ) * sizeof( struct person ), SEEK_SET );
+      fwrite( &man, sizeof( struct person ), 1, fPtr ); 
    } 
 } 
 
 void newRecord( FILE *fPtr )
 { 
-   struct person blankMan = { 0, "unassign", "", "0"};
+   struct person man = { 0, "unassign", "", "0"};
    unsigned int order; 
   
    printf( "%s", "Enter new account number ( 1 - 100 ): " );
@@ -138,19 +138,19 @@ void newRecord( FILE *fPtr )
    fseek( fPtr, (order - 1 ) * sizeof( struct person ), 
       SEEK_SET );                                                 
               
-   fread( &people, sizeof( struct person ), 1, fPtr );
+   fread( &man, sizeof( struct person ), 1, fPtr );
 
    if ( man.number != 0 ) {
       printf( "Account #%d already contains information.\n",man.number );
    } 
    else { 
       printf( "%s", "Enter lastname, firstname, age\n? " );
-      scanf( "%14s%14s%3s", &newlastName, &newfirstName, &newage  );
+      scanf( "%14s%14s%3s", &man.lastName, &man.firstName, &man.age  );
 
       man.number = order;
       
-      fseek( fPtr, ( number - 1 ) * sizeof( struct person ), SEEK_SET );
-      fwrite( &man, sizeof( struct person ), 1, writePtr );
+      fseek( fPtr, ( order - 1 ) * sizeof( struct person ), SEEK_SET );
+      fwrite( &man, sizeof( struct person ), 1, fPtr );
    } 
 } 
 
