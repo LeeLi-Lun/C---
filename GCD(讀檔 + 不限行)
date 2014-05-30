@@ -1,0 +1,54 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+void textFile( FILE *readPtr, int answer );
+int GCD(int x, int y);
+
+int main( void ){ 
+    
+    int x;
+    int y;
+    int nubmer;
+    int answer;
+    
+	FILE *cfPtr;
+    
+    if ( ( cfPtr = fopen( "gcd_input.txt", "r") ) == NULL ) {
+        puts( "File could not be read." );
+    } 
+    else {   
+         fscanf( cfPtr, "%*s%d%d", &x, &y );
+         answer = GCD(x,y);
+         while( !feof( cfPtr ) ){
+             fscanf( cfPtr, "%d",&nubmer );
+             answer = GCD( answer , nubmer);                 
+         } 
+         textFile(cfPtr, answer);                        
+    }
+    fclose( cfPtr );
+    system("pause");
+}
+
+void textFile( FILE *readPtr, int answer )
+{ 
+   FILE *writePtr; 
+
+   if ( ( writePtr = fopen( "gcd_output.txt", "w" ) ) == NULL ) {
+      puts( "File could not be opened." );
+   }
+   else { 
+       fprintf(writePtr,"%d",answer);
+   } 
+   fclose( writePtr ); 
+    
+} 
+
+int GCD(int x ,int y){
+   int z;
+   while ( x != 0 ) {
+       z = x; 
+       x = y % x; 
+       y = z;
+   }
+   return y;
+}
