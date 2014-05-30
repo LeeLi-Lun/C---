@@ -50,7 +50,7 @@ void textFile( FILE *readPtr )
    }
    else { 
       rewind( readPtr ); 
-      fprintf( readPtr, "%-4s%-14s%-14s%10s\n", 
+      fprintf( writePtr, "%-4d%-14s%-14s%3s\n", 
          "Number", "Last Name", "First Name","Age" );
          
       while ( !feof( readPtr ) ) { 
