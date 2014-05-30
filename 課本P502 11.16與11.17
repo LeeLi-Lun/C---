@@ -1,0 +1,39 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <ctype.h>
+
+int main( void ){ 
+    
+	FILE *cfPtr;
+	FILE *writePtr;
+	size_t i;
+	char number1;
+	char number2;
+
+	int count[26] = {0};
+    
+    if ( ( cfPtr = fopen( "input.txt", "r") ) == NULL ) {
+        puts( "File could not be read." );
+    } 
+    else {   
+         while( !feof( cfPtr ) ){
+            number1 = fgetc(cfPtr);
+            number2 = tolower(number1);
+            count[number2-'a']++;
+              
+         } 
+         
+          if ( ( writePtr = fopen( "output.txt", "w" ) ) == NULL ) {
+             puts( "File could not be opened." );
+         }
+           else { 
+              fprintf(writePtr,"%-16s%s\n","Character","Count");
+              for(i = 0; i < 26; i++){
+                 fprintf(writePtr,"%-16c%d\n",(char)('a'+i),count[i]);
+           }
+         }                    
+    }
+    fclose( cfPtr );
+    fclose( writePtr ); 
+    system("pause");
+}
