@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 struct person {
-   unsigned int number;
+    int number;
    char lastName[ 15 ]; 
    char firstName[ 15 ];  
    char age[4];
@@ -50,14 +50,14 @@ void textFile( FILE *readPtr )
    }
    else { 
       rewind( readPtr ); 
-      fprintf( writePtr, "%-6s%-16s%-11s%3s\n", 
+      fprintf( writePtr, "%-6s%-16s%-11s%3s", 
          "Number", "Last Name", "First Name","Age" );
          
       while ( !feof( readPtr ) ) { 
          result = fread(&man, sizeof( struct person ), 1, readPtr);
          
          if ( result != 0 && man.number != 0 ) {
-            fprintf( writePtr,  "%-6d%-16s%-11s%3s\n",
+            fprintf( writePtr,  "%-6d%-16s%-11s%3s",
                man.number, man.lastName,         
                man.firstName, man.age );      
          } 
@@ -80,15 +80,15 @@ void updateRecord( FILE *fPtr )
    fread( &man, sizeof( struct person ), 1, fPtr );
 
    if ( man.number == 0 ) {
-      printf( "Account #%d has no information.\n", account );
+      printf( "Account %d has no information.\n", account );
    } 
    else { 
-      printf("%-6d%-16s%-11s%4s\n\n",man.number, man.lastName,         
+      printf("%6d%16s%11s%4s\n",man.number, man.lastName,         
                man.firstName, man.age ); 
       printf( "%s", "Enter the new lasName, firstName ,age: " );
       scanf( "%14s%14s%3s", &man.lastName, &man.firstName,&man.age  );
 
-      printf("%-6d%-16s%-11s%4s\n",man.number, man.lastName,         
+      printf("%6d%16s%11s%4s\n",man.number, man.lastName,         
                man.firstName, man.age );  
      
       fseek( fPtr, ( account - 1 ) * sizeof( struct person ),SEEK_SET ); 
@@ -137,7 +137,7 @@ void newRecord( FILE *fPtr )
    } 
    else { 
       printf( "%s", "Enter lastname, firstname, age\n? " );
-      scanf( "%14s14%s%3s", &man.lastName, &man.firstName, &man.age  );
+      scanf( "%14s%14s%3s", &man.lastName, &man.firstName, &man.age  );
 
       man.number = order;
       
