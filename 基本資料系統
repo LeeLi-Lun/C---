@@ -49,7 +49,7 @@ void textFile( FILE *readPtr )
       puts( "File could not be opened." );
    }
    else { 
-      rewind( readPtr ); 
+      rewind( writePtr ); 
       fprintf( writePtr, "%-6s%-16s%-11s%3s", 
          "Number", "Last Name", "First Name","Age" );
          
