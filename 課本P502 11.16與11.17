@@ -2,13 +2,16 @@
 #include <stdio.h>
 #include <ctype.h>
 
+void txt(char name[] ,int count[]);
+
 int main( void ){ 
-    
-	FILE *cfPtr;
-	FILE *writePtr;
+	
+    FILE *cfPtr;
 	size_t i;
+	char name[20];
 	char number1;
 	char number2;
+	unsigned int choice;
 
 	int count[26] = {0};
     
@@ -22,67 +25,28 @@ int main( void ){
             count[number2-'a']++;
               
          } 
-         
-          if ( ( writePtr = fopen( "output.txt", "w" ) ) == NULL ) {
-             puts( "File could not be opened." );
-         }
-           else { 
-              fprintf(writePtr,"%-16s%s\n","Character","Count");
-              for(i = 0; i < 26; i++){
-                 fprintf(writePtr,"%-16c%d\n",(char)('a'+i),count[i]);
-           }
-         }                    
-    }
-    fclose( cfPtr );
-    fclose( writePtr ); 
-    system("pause");
-}
-----------------------------------------------------------------
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <ctype.h>
-
-void txt(char[] name ,int[] count);
-
-int main( void ){ 
-	
-	size_t i;
-	char name[10];
-	char number1;
-	char number2;
-	unsigned int choice;
-
-	int count[26] = {0};
-	
-	puts("Please enter alphas");
-	
-	while( !feof( stdin ) ){
-            number1 = fgetc(cfPtr);
-            number2 = tolower(number1);
-            count[number2-'a']++;
-        }
-              
-	puts("Enter 1 output on  the cmd, enter 2 output the txt");
-	
-	scanf("%d", choice );
-	
-	switch ( choice ) { 
+    puts("Enter 1 output on  the cmd, enter 2 output the txt");
+    scanf("%d", &choice );
+	        switch ( choice ) { 
                 case 1: 
-                	printf("%-16s%s\n","Character","Count");
+                	   printf("%-16s%s\n","Character","Count");
                         for(i = 0; i < 26; i++){
-                             printf("%-16c%d\n",(char)('a'+i),count[i]);
+                        printf("%-16c%d\n",(char)('a'+i),count[i]);
                         } break;
                 case 2:
-                        puts(Please enter the file name ex: test.txt);
-                        scanf("%s", name);
+                        puts("Please enter the file name ex: test.txt");
+                        scanf("%s", &name);
                         txt( name, count ); break;
             }
-  
+    }
+    fclose( cfPtr ); 
+         
+   
+
     system("pause");
 }
 
-void txt(char[] name ,int[] count){
+void txt(char name[] ,int count[]){
     
     FILE *writePtr;
     size_t j;
@@ -93,9 +57,8 @@ void txt(char[] name ,int[] count){
            else { 
               fprintf(writePtr,"%-16s%s\n","Character","Count");
               for(j = 0; j < 26; j++){
-                 fprintf(writePtr,"%-16c%d\n",(char)('a'+i),count[i]);
+                 fprintf(writePtr,"%-16c%d\n",(char)('a'+ j),count[j]);
            }
          } 
-    fclose(WritePtr);
+    fclose(writePtr);
 }
-
