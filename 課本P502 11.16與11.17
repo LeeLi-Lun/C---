@@ -43,15 +43,12 @@ int main( void ){
 #include <stdio.h>
 #include <ctype.h>
 
-
-void cmd();
-void txt();
+void txt(char[] name ,int[] count);
 
 int main( void ){ 
-    
-	FILE *cfPtr;
-	FILE *writePtr;
+	
 	size_t i;
+	char name[10];
 	char number1;
 	char number2;
 	unsigned int choice;
@@ -60,39 +57,45 @@ int main( void ){
 	
 	puts("Please enter alphas");
 	
-	
-	puts("Enter 1 output on  the txt, enter output the cmd");
+	while( !feof( stdin ) ){
+            number1 = fgetc(cfPtr);
+            number2 = tolower(number1);
+            count[number2-'a']++;
+        }
+              
+	puts("Enter 1 output on  the cmd, enter 2 output the txt");
 	
 	scanf("%d", choice );
 	
 	switch ( choice ) { 
-                case 1: cmd(  ); break;
-                case 2:txt(  ); break;
+                case 1: 
+                	printf("%-16s%s\n","Character","Count");
+                        for(i = 0; i < 26; i++){
+                             printf("%-16c%d\n",(char)('a'+i),count[i]);
+                        } break;
+                case 2:
+                        puts(Please enter the file name ex: test.txt);
+                        scanf("%s", name);
+                        txt( name, count ); break;
             }
+  
+    system("pause");
+}
+
+void txt(char[] name ,int[] count){
     
-    if ( ( cfPtr = fopen( "input.txt", "r") ) == NULL ) {
-        puts( "File could not be read." );
-    } 
-    else {   
-         while( !feof( cfPtr ) ){
-            number1 = fgetc(cfPtr);
-            number2 = tolower(number1);
-            count[number2-'a']++;
-              
-         } 
-         
-          if ( ( writePtr = fopen( "output.txt", "w" ) ) == NULL ) {
+    FILE *writePtr;
+    size_t j;
+    
+    if ( ( writePtr = fopen( name, "w" ) ) == NULL ) {
              puts( "File could not be opened." );
          }
            else { 
               fprintf(writePtr,"%-16s%s\n","Character","Count");
-              for(i = 0; i < 26; i++){
+              for(j = 0; j < 26; j++){
                  fprintf(writePtr,"%-16c%d\n",(char)('a'+i),count[i]);
            }
-         }                    
-    }
-    fclose( cfPtr );
-    fclose( writePtr ); 
-    system("pause");
+         } 
+    fclose(WritePtr);
 }
 
