@@ -1,4 +1,4 @@
-// ConsoleApplication1.cpp : 定義主控台應用程式的進入點。
+// U10216012.cpp : 定義主控台應用程式的進入點。
 //
 
 #include "stdafx.h"
@@ -23,7 +23,7 @@ int main(void){
 	FILE *cfPtr;
 	unsigned int choice;
 
-	if ((cfPtr = fopen("nameage.dat", "w")) == NULL) {
+	if ((cfPtr = fopen("nameage.dat", "w+")) == NULL) {
 		puts("File could not be opened.");
 	}
 	else {
@@ -45,13 +45,13 @@ void textFile(FILE *readPtr)
 	FILE *writePtr;
 	int result;
 
-	struct person man = { 0, "unassign", "", "0" };
+	struct person man  = { 0, "unassign", "", "0" };
 
 	if ((writePtr = fopen("nameage.txt", "w")) == NULL) {
 		puts("File could not be opened.");
 	}
 	else {
-		rewind(writePtr);
+		rewind(readPtr);
 		fprintf(writePtr, "%-6s%-16s%-11s%3s",
 			"Number", "Last Name", "First Name", "Age");
 
@@ -59,7 +59,7 @@ void textFile(FILE *readPtr)
 			result = fread(&man, sizeof(struct person), 1, readPtr);
 
 			if (result != 0 && man.number != 0) {
-				fprintf(writePtr, "%-6d%-16s%-11s%3s",
+				fprintf(writePtr, "%-6d%-16s%-11s%3s\n",
 					man.number, man.lastName,
 					man.firstName, man.age);
 			}
@@ -85,12 +85,12 @@ void updateRecord(FILE *fPtr)
 		printf("Account %d has no information.\n", account);
 	}
 	else {
-		printf("%-d%-s%-s%-s\n\n", man.number, man.lastName,
+		printf("%-6d%-16s%-11s%3s\n\n", man.number, man.lastName,
 			man.firstName, man.age);
-		printf("%s", "Enter the new age: ");
-		scanf("%3s", &man.age);
+		printf("%s", "Enter the new lastName, firstName and age: ");
+		scanf("%14s%14s%3s",&man.lastName,&man.firstName, &man.age);
 
-		printf("%6d%16s%11s%4s\n", man.number, man.lastName,
+		printf("%-6d%-16s%-11s%3s\n", man.number, man.lastName,
 			man.firstName, man.age);
 
 		fseek(fPtr, (account - 1) * sizeof(struct person), SEEK_SET);
@@ -162,6 +162,7 @@ unsigned int enterChoice(void)
 	scanf("%u", &menuChoice);
 	return menuChoice;
 }
+
 
 
 
