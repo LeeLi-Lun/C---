@@ -28,13 +28,10 @@ int main( void )
    TreeNodePtr rootPtr = NULL; 
 
    srand( time( NULL ) ); 
-   puts( "The numbers being placed in the tree are:" );
+   puts( "Enter numbers and they being placed in the tree are:" );
 
-   for ( i = 1; i <= 10; ++i ) { 
-      item = rand() % 15;
-      printf( "%3d", item );
-      insertNode( &rootPtr, item );
-   }
+
+
 } 
 
 void insertNode( TreeNodePtr *treePtr, int value )
