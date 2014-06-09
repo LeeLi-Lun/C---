@@ -9,53 +9,59 @@
                          
 struct treeNode {                                           
    struct treeNode *leftPtr; 
-   int data;                               
+   char data[10];                               
    struct treeNode *rightPtr; 
 };                              
 
 typedef struct treeNode TreeNode; 
 typedef TreeNode *TreeNodePtr;
 
-void insertNode( TreeNodePtr *treePtr, int value );
+void insertNode( TreeNodePtr *treePtr, char *tokenPtr );
 void inOrder( TreeNodePtr treePtr );
 void preOrder( TreeNodePtr treePtr );
 void postOrder( TreeNodePtr treePtr );
 
 int main( void )
 { 
-   unsigned int i; 
-   int item; 
+   char sentence[333];
+   char *tokenPtr;
    TreeNodePtr rootPtr = NULL; 
 
    srand( time( NULL ) ); 
    puts( "Enter numbers and they being placed in the tree are:" );
 
-
-
+    fgets(sentence, 333 , stdin);
+   
+   tokenPtr = strtok(sentence, " ");
+   
+   while(tokenPtr != NULL){
+       insertNode( &rootPtr , tokenPtr );
+	   tokenPtr = strtok(NULL," "); 
+   }
 } 
 
-void insertNode( TreeNodePtr *treePtr, int value )
+void insertNode( TreeNodePtr *treePtr, char *tokenPtr )
 { 
    if ( *treePtr == NULL ) {   
       *treePtr = (TreeNodePtr) malloc( sizeof( TreeNode ) );
 
       if ( *treePtr != NULL ) { 
-         ( *treePtr )->data = value;
+         ( *treePtr )->data = tokenPtr;
          ( *treePtr )->leftPtr = NULL;
          ( *treePtr )->rightPtr = NULL;
       } 
       else {
-         printf( "%d not inserted. No memory available.\n", value );
+         printf( "%d not inserted. No memory available.\n", tokenPtr );
       } 
    } 
    else { 
      
-      if ( value < ( *treePtr )->data ) {                   
-         insertNode( &( ( *treePtr )->leftPtr ), value );   
+      if (tokenPtr < ( *treePtr )->data ) {                   
+         insertNode( &( ( *treePtr )->leftPtr ), tokenPtr);   
       }                                         
 
-      else if ( value > ( *treePtr )->data ) {                 
-         insertNode( &( ( *treePtr )->rightPtr ), value );     
+      else if (tokenPtr > ( *treePtr )->data ) {                 
+         insertNode( &( ( *treePtr )->rightPtr ), tokenPtr );     
       }                                     
       else { 
          printf( "%s", "dup" );
