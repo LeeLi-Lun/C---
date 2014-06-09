@@ -1,163 +1,167 @@
+// ConsoleApplication1.cpp : 定義主控台應用程式的進入點。
+//
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 struct person {
-    int number;
-   char lastName[ 15 ]; 
-   char firstName[ 15 ];  
-   char age[4];
-};                 
- 
-unsigned int enterChoice( void );
-void textFile( FILE *readPtr );
-void updateRecord( FILE *fPtr );
-void newRecord( FILE *fPtr );
-void deleteRecord( FILE *fPtr );
+	int number;
+	char lastName[15];
+	char firstName[15];
+	char age[4];
+};
 
-int main( void ){ 
+unsigned int enterChoice(void);
+void textFile(FILE *readPtr);
+void updateRecord(FILE *fPtr);
+void newRecord(FILE *fPtr);
+void deleteRecord(FILE *fPtr);
+
+int main(void){
 
 	FILE *cfPtr;
-    unsigned int choice;
-    
-    if ( ( cfPtr = fopen( "nameage.dat", "w") ) == NULL ) {
-        puts( "File could not be opened." );
-    } 
-    else { 
-        while ( ( choice = enterChoice() ) != 5 ) { 
-            switch ( choice ) { 
-                case 1: textFile( cfPtr ); break;
-                case 2:updateRecord( cfPtr ); break;
-                case 3: newRecord( cfPtr ); break;
-                case 4: deleteRecord( cfPtr );  break; 
-                default: puts( "Incorrect choice" );  break;
-            } 
-         } 
-    }
-    fclose( cfPtr );
-    system("pause");
+	unsigned int choice;
+
+	if ((cfPtr = fopen("nameage.dat", "w")) == NULL) {
+		puts("File could not be opened.");
+	}
+	else {
+		while ((choice = enterChoice()) != 5) {
+			switch (choice) {
+			case 1: textFile(cfPtr); break;
+			case 2:updateRecord(cfPtr); break;
+			case 3: newRecord(cfPtr); break;
+			case 4: deleteRecord(cfPtr);  break;
+			default: puts("Incorrect choice");  break;
+			}
+		}
+	}
+	fclose(cfPtr);
 }
 
-void textFile( FILE *readPtr )
-{ 
-   FILE *writePtr; 
-   int result; 
+void textFile(FILE *readPtr)
+{
+	FILE *writePtr;
+	int result;
 
-   struct person man = { 0, "unassign", "", "0"};
+	struct person man = { 0, "unassign", "", "0" };
 
-   if ( ( writePtr = fopen( "nameage.txt", "w" ) ) == NULL ) {
-      puts( "File could not be opened." );
-   }
-   else { 
-      rewind( writePtr ); 
-      fprintf( writePtr, "%-6s%-16s%-11s%3s", 
-         "Number", "Last Name", "First Name","Age" );
-         
-      while ( !feof( readPtr ) ) { 
-         result = fread(&man, sizeof( struct person ), 1, readPtr);
-         
-         if ( result != 0 && man.number != 0 ) {
-            fprintf( writePtr,  "%-6d%-16s%-11s%3s",
-               man.number, man.lastName,         
-               man.firstName, man.age );      
-         } 
-      } 
-      fclose( writePtr ); 
-   } 
-} 
+	if ((writePtr = fopen("nameage.txt", "w")) == NULL) {
+		puts("File could not be opened.");
+	}
+	else {
+		rewind(writePtr);
+		fprintf(writePtr, "%-6s%-16s%-11s%3s",
+			"Number", "Last Name", "First Name", "Age");
 
-void updateRecord( FILE *fPtr )
-{ 
-   struct person man;
-   unsigned int account; 
+		while (!feof(readPtr)) {
+			result = fread(&man, sizeof(struct person), 1, readPtr);
 
-   printf( "%s", "Enter account to update ( 1 - 100 ): " );
-   scanf( "%d", &account );
-  
-   fseek( fPtr, ( account - 1 ) * sizeof( struct person ), 
-      SEEK_SET );                                              
+			if (result != 0 && man.number != 0) {
+				fprintf(writePtr, "%-6d%-16s%-11s%3s",
+					man.number, man.lastName,
+					man.firstName, man.age);
+			}
+		}
+		fclose(writePtr);
+	}
+}
 
-   fread( &man, sizeof( struct person ), 1, fPtr );
+void updateRecord(FILE *fPtr)
+{
+	struct person man;
+	unsigned int account;
 
-   if ( man.number == 0 ) {
-      printf( "Account %d has no information.\n", account );
-   } 
-   else { 
-      printf("%6d%16s%11s%4s\n",man.number, man.lastName,         
-               man.firstName, man.age ); 
-      printf( "%s", "Enter the new lasName, firstName ,age: " );
-      scanf( "%14s%14s%3s", &man.lastName, &man.firstName,&man.age  );
+	printf("%s", "Enter account to update ( 1 - 100 ): ");
+	scanf("%d", &account);
 
-      printf("%6d%16s%11s%4s\n",man.number, man.lastName,         
-               man.firstName, man.age );  
-     
-      fseek( fPtr, ( account - 1 ) * sizeof( struct person ),SEEK_SET ); 
-      fwrite( &man, sizeof( struct person ), 1, fPtr );
-   }
-} 
+	fseek(fPtr, (account - 1) * sizeof(struct person),
+		SEEK_SET);
 
-void deleteRecord( FILE *fPtr )
-{ 
-   struct person man;
-   struct person blankMan = { 0, "unassign", "", "0"};
-   unsigned int order; 
+	fread(&man, sizeof(struct person), 1, fPtr);
 
-   printf( "%s", "Enter account number to delete ( 1 - 100 ): " );
-   scanf( "%d", &order );
-              
-   fseek( fPtr, (order - 1 ) * sizeof( struct person ), 
-      SEEK_SET );                                                 
-              
-   fread( &man, sizeof( struct person ), 1, fPtr );
+	if (man.number == 0) {
+		printf("Account %d has no information.\n", account);
+	}
+	else {
+		printf("%-d%-s%-s%-s\n\n", man.number, man.lastName,
+			man.firstName, man.age);
+		printf("%s", "Enter the new age: ");
+		scanf("%3s", &man.age);
 
-   if ( man.number == 0 ) {
-      printf( "Account %d does not exist.\n", order );
-   }
-   else {              
-      fseek( fPtr, ( order - 1 ) * sizeof( struct person ), SEEK_SET );
-      fwrite( &blankMan, sizeof( struct person ), 1, fPtr ); 
-   } 
-} 
+		printf("%6d%16s%11s%4s\n", man.number, man.lastName,
+			man.firstName, man.age);
 
-void newRecord( FILE *fPtr )
-{ 
-   struct person man = { 0, "unassign", "", "0"};
-   unsigned int order; 
-  
-   printf( "%s", "Enter new account number ( 1 - 100 ): " );
-   scanf( "%d", &order );
-              
-   fseek( fPtr, (order - 1 ) * sizeof( struct person ), 
-      SEEK_SET );                                                 
-              
-   fread( &man, sizeof( struct person ), 1, fPtr );
+		fseek(fPtr, (account - 1) * sizeof(struct person), SEEK_SET);
+		fwrite(&man, sizeof(struct person), 1, fPtr);
+	}
+}
 
-   if ( man.number != 0 ) {
-      printf( "Account #%d already contains information.\n",man.number );
-   } 
-   else { 
-      printf( "%s", "Enter lastname, firstname, age\n? " );
-      scanf( "%14s%14s%3s", &man.lastName, &man.firstName, &man.age  );
+void deleteRecord(FILE *fPtr)
+{
+	struct person man;
+	struct person blankMan = { 0, "unassign", "", "0" };
+	unsigned int order;
 
-      man.number = order;
-      
-      fseek( fPtr, ( order - 1 ) * sizeof( struct person ), SEEK_SET );
-      fwrite( &man, sizeof( struct person ), 1, fPtr );
-   } 
-} 
+	printf("%s", "Enter account number to delete ( 1 - 100 ): ");
+	scanf("%d", &order);
 
-unsigned int enterChoice( void )
-{ 
-   unsigned int menuChoice; 
-   printf( "%s", "\nEnter your choice\n"
-      "1 - store a formatted text file of accounts called\n"
-      "    \"nameage.txt\" for printing\n"
-      "2 - update an account\n"
-      "3 - add a new account\n"
-      "4 - delete an account\n"
-      "5 - end program\n? " );
+	fseek(fPtr, (order - 1) * sizeof(struct person),
+		SEEK_SET);
 
-   scanf( "%u", &menuChoice ); 
-   return menuChoice;
-} 
+	fread(&man, sizeof(struct person), 1, fPtr);
+
+	if (man.number == 0) {
+		printf("Account %d does not exist.\n", order);
+	}
+	else {
+		fseek(fPtr, (order - 1) * sizeof(struct person), SEEK_SET);
+		fwrite(&blankMan, sizeof(struct person), 1, fPtr);
+	}
+}
+
+void newRecord(FILE *fPtr)
+{
+	struct person man = { 0, "unassign", "", "0" };
+	unsigned int order;
+
+	printf("%s", "Enter new account number ( 1 - 100 ): ");
+	scanf("%d", &order);
+
+	fseek(fPtr, (order - 1) * sizeof(struct person),
+		SEEK_SET);
+
+	fread(&man, sizeof(struct person), 1, fPtr);
+
+	if (man.number != 0) {
+		printf("Account #%d already contains information.\n", man.number);
+	}
+	else {
+		printf("%s", "Enter lastname, firstname, age\n? ");
+		scanf("%14s%14s%3s", &man.lastName, &man.firstName, &man.age);
+
+		man.number = order;
+
+		fseek(fPtr, (order - 1) * sizeof(struct person), SEEK_SET);
+		fwrite(&man, sizeof(struct person), 1, fPtr);
+	}
+}
+
+unsigned int enterChoice(void)
+{
+	unsigned int menuChoice;
+	printf("%s", "\nEnter your choice\n"
+		"1 - store a formatted text file of accounts called\n"
+		"    \"nameage.txt\" for printing\n"
+		"2 - update an account\n"
+		"3 - add a new account\n"
+		"4 - delete an account\n"
+		"5 - end program\n? ");
+
+	scanf("%u", &menuChoice);
+	return menuChoice;
+}
+
+
 
