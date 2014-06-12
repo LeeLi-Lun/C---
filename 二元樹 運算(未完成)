@@ -1,7 +1,4 @@
-// ConsoleApplication1.cpp : 定義主控台應用程式的進入點。
-//
 
-#include "stdafx.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,14 +6,14 @@
                          
 struct treeNode {                                           
    struct treeNode *leftPtr; 
-   char data[10];                               
+   char *data;                               
    struct treeNode *rightPtr; 
 };                              
 
 typedef struct treeNode TreeNode; 
 typedef TreeNode *TreeNodePtr;
 
-void insertNode( TreeNodePtr *treePtr, char *tokenPtr );
+void insertNode( TreeNodePtr *treePtr, char *value );
 void inOrder( TreeNodePtr treePtr );
 void preOrder( TreeNodePtr treePtr );
 void postOrder( TreeNodePtr treePtr );
@@ -28,7 +25,7 @@ int main( void )
    TreeNodePtr rootPtr = NULL; 
 
    srand( time( NULL ) ); 
-   puts( "Enter numbers and they being placed in the tree are:" );
+   puts( "Enter words and they being placed in the tree are:" );
 
     fgets(sentence, 333 , stdin);
    
@@ -38,33 +35,35 @@ int main( void )
        insertNode( &rootPtr , tokenPtr );
 	   tokenPtr = strtok(NULL," "); 
    }
+   
+   system("pause");
 } 
 
-void insertNode( TreeNodePtr *treePtr, char *tokenPtr )
+void insertNode( TreeNodePtr *treePtr, char * value )
 { 
    if ( *treePtr == NULL ) {   
       *treePtr = (TreeNodePtr) malloc( sizeof( TreeNode ) );
 
       if ( *treePtr != NULL ) { 
-         ( *treePtr )->data = tokenPtr;
+         ( *treePtr )->data = value;
          ( *treePtr )->leftPtr = NULL;
          ( *treePtr )->rightPtr = NULL;
       } 
       else {
-         printf( "%d not inserted. No memory available.\n", tokenPtr );
+         printf( "%d not inserted. No memory available.\n", value );
       } 
    } 
    else { 
      
-      if (tokenPtr < ( *treePtr )->data ) {                   
-         insertNode( &( ( *treePtr )->leftPtr ), tokenPtr);   
+      if (value < ( *treePtr )->data ) {                   
+         insertNode( &( ( *treePtr )->leftPtr ), value);   
       }                                         
 
-      else if (tokenPtr > ( *treePtr )->data ) {                 
-         insertNode( &( ( *treePtr )->rightPtr ), tokenPtr );     
+      else if (value > ( *treePtr )->data ) {                 
+         insertNode( &( ( *treePtr )->rightPtr ),value );     
       }                                     
       else { 
-         printf( "%s", "dup" );
+         printf( "dup %s,",  value);
       }
    }
 } 
