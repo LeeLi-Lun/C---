@@ -1,0 +1,182 @@
+// ConsoleApplication1.cpp : 定義主控台應用程式的進入點。
+//
+
+#include "stdafx.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+#define CARDS 52
+
+typedef struct Card {                                  
+   unsigned int face : 4; 
+   unsigned int suit : 2;       
+   unsigned int color : 1;         
+};
+
+struct treeNode {                                           
+   struct treeNode *leftPtr; 
+   int data;                               
+   struct treeNode *rightPtr;
+   int number;
+};
+
+typedef struct treeNode TreeNode; 
+typedef TreeNode *TreeNodePtr;
+
+
+void fillDeck( Card * const wDeck );
+void shuffle( Card * const wDeck );
+void deal( const Card * const wDeck, char *faces[], char *suits[], char *colors[] );
+void insertNode( TreeNodePtr *treePtr, int value, int nubmer );
+void inOrder( TreeNodePtr treePtr, const Card * const wDeck , char *faces[], char *suits[], char *colors[]);
+void preOrder( TreeNodePtr treePtr, const Card * const wDeck , char *faces[], char *suits[], char *colors[]);
+void postOrder( TreeNodePtr treePtr, const Card * const wDeck , char *faces[], char *suits[], char *colors[]);
+
+int main( void )
+{ 
+   Card deck[ CARDS ]; 
+
+    char *faces[] = { "Ace", "Deuce", "Three", "Four", "Five",
+      "Six", "Seven", "Eight", "Nine", "Ten",
+      "Jack", "Queen", "King"};
+
+    char *suits[] = { "Hearts", "Diamonds", "Clubs", "Spades"};
+
+    char *colors[] = {"Red","Black"};
+
+   srand( time( NULL ) );
+
+   fillDeck( deck );
+   shuffle( deck);
+   deal( deck, faces, suits ,colors );
+}
+
+
+void fillDeck( Card * const wDeck )
+{ 
+   size_t i; 
+
+   for ( i = 0; i < CARDS; ++i ) { 
+      wDeck[ i ].face = i % (CARDS / 4); 
+      wDeck[ i ].suit = i / (CARDS / 4);  
+      wDeck[ i ].color = i / (CARDS / 2);
+   } 
+}
+
+void shuffle( Card * const wDeck )
+{ 
+   size_t i; 
+   size_t j;
+   Card temp; 
+
+   for ( i = 0; i < CARDS; ++i ) { 
+      j = rand() % CARDS;
+      temp = wDeck[ i ];      
+      wDeck[ i ] = wDeck[ j ];
+      wDeck[ j ] = temp;      
+   } 
+} 
+
+void deal( const Card * const wDeck, char *faces[], char *suits[], char *colors[]) 
+{ 
+   int value;
+   TreeNodePtr rootPtr = NULL;
+   size_t k;
+
+   for ( k= 0; k< 5 ;k++ ) { 
+      printf( "%+5s: %+5s of %-8s\n",
+		  colors[wDeck[ k ].color], 
+		  faces[wDeck[ k ].face],
+	      suits[wDeck[ k ].suit] ) ;
+	  value = wDeck[ k ].face;
+	  insertNode( &rootPtr ,value, k);
+   }
+  printf("\n\n");
+
+  puts("The inOrder reaversal is:");
+  inOrder( rootPtr,wDeck, faces, suits ,colors );
+  printf("\n\n");
+
+  puts("The preOrder reaversal is:");
+  preOrder(rootPtr,wDeck, faces, suits ,colors );
+  printf("\n\n");
+
+  puts("The postOrder reaversal is:");
+  postOrder(rootPtr,wDeck, faces, suits ,colors );
+
+
+}
+
+void insertNode( TreeNodePtr *treePtr,  int  value, int number )
+{ 
+   if ( *treePtr == NULL ) {   
+      *treePtr = (TreeNodePtr) malloc( sizeof( TreeNode ) );
+
+      if ( *treePtr != NULL ) { 
+         ( *treePtr )->data = value;
+         ( *treePtr )->leftPtr = NULL;
+         ( *treePtr )->rightPtr = NULL;
+		  ( *treePtr )->number = number;
+      } 
+      else {
+         printf( "%d not inserted. No memory available.\n", value );
+      } 
+   } 
+   else { 
+     
+      if (value < ( *treePtr )->data) {                   
+         insertNode( &( ( *treePtr )->leftPtr ), value,number);   
+      }                                         
+
+      else if (value > ( *treePtr )->data) {                 
+         insertNode( &( ( *treePtr )->rightPtr ),value,number );     
+      }                                     
+      else { 
+         printf( "dup %s,\n", "牌重複");
+      }
+   }
+} 
+
+void inOrder( TreeNodePtr treePtr, const Card * const wDeck, char *faces[], char *suits[], char *colors[] )
+{ 
+
+   if ( treePtr != NULL ) {                
+      inOrder( treePtr->leftPtr,wDeck, faces, suits ,colors );         
+     printf( "%+5s: %+5s of %-8s\n",
+		  colors[wDeck[treePtr->number ].color], 
+		  faces[wDeck[treePtr->number ].face],
+	      suits[wDeck[ treePtr->number ].suit] ) ;      
+      inOrder( treePtr->rightPtr ,wDeck, faces, suits ,colors);        
+   }                           
+} 
+
+void preOrder( TreeNodePtr treePtr, const Card * const wDeck, char *faces[], char *suits[], char *colors[] )
+{ 
+
+   if ( treePtr != NULL ) {                
+      printf( "%+5s: %+5s of %-8s\n",
+		  colors[wDeck[treePtr->number ].color], 
+		  faces[wDeck[treePtr->number ].face],
+	      suits[wDeck[ treePtr->number ].suit] ) ;        
+      preOrder( treePtr->leftPtr,wDeck, faces, suits ,colors );        
+      preOrder( treePtr->rightPtr,wDeck, faces, suits ,colors ); 
+   }                          
+} 
+
+
+void postOrder( TreeNodePtr treePtr, const Card * const wDeck, char *faces[], char *suits[], char *colors[] )
+{ 
+   
+   if ( treePtr != NULL ) {                
+      postOrder( treePtr->leftPtr,wDeck, faces, suits ,colors );       
+      postOrder( treePtr->rightPtr ,wDeck, faces, suits ,colors); 
+	  printf( "%+5s: %+5s of %-8s\n",
+		  colors[wDeck[treePtr->number ].color], 
+		  faces[wDeck[treePtr->number ].face],
+	      suits[wDeck[ treePtr->number ].suit] ) ;   
+} 
+}
+
+
+ 
